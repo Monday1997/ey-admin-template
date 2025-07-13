@@ -1,7 +1,7 @@
 import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
 import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
 import { globalIgnores } from 'eslint/config'
-import simpleImportSort from "eslint-plugin-simple-import-sort";
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import pluginVue from 'eslint-plugin-vue'
 
 // To allow more languages other than `ts` in `.vue` files, uncomment the following lines:
@@ -10,33 +10,36 @@ import pluginVue from 'eslint-plugin-vue'
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
 
 export default defineConfigWithVueTs(
-
-  {
-    name: 'app/files-to-lint',
-    files: ['**/*.{ts,mts,tsx,vue}'],
-  },
-  {
-    plugins: {
-      "simple-import-sort": simpleImportSort,
+    {
+        name: 'app/files-to-lint',
+        files: ['**/*.{ts,mts,tsx,vue}'],
     },
-    rules: {
-      "simple-import-sort/imports": [
-        "warn", {
-          groups: [
-            ['^\\u0000'],
-            ['^node:', '^vue', '^ant-design-vue', '^@ant-design', '^@?\\w'],
-            ['^'],// component那些
-            ['^\\.'],
-          ],
+    {
+        plugins: {
+            'simple-import-sort': simpleImportSort,
         },
-      ],
-      "simple-import-sort/exports": "warn",
+        rules: {
+            'simple-import-sort/imports': [
+                'warn',
+                {
+                    groups: [
+                        ['^\\u0000'],
+                        ['^node:', '^vue', '^ant-design-vue', '^@ant-design', '^@?\\w'],
+                        ['^'], // component那些
+                        ['^\\.'],
+                    ],
+                },
+            ],
+            'simple-import-sort/exports': 'warn',
+        },
     },
-  },
-  globalIgnores(['node_modules/**', '**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
-
-  pluginVue.configs['flat/essential'],
-  vueTsConfigs.recommended,
-  skipFormatting,
-
+    globalIgnores(['node_modules/**', '**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+    pluginVue.configs['flat/essential'],
+    vueTsConfigs.recommended,
+    skipFormatting,
+    {
+        rules: {
+            'no-explicit-any': 'off',
+        },
+    },
 )

@@ -16,8 +16,10 @@
         "lint:all": "npm run lint && npm run lint:style && npm run lint:fn"
     },
     "dependencies": {
+        "@intlify/unplugin-vue-i18n": "^6.0.8",
         "pinia": "^3.0.3",
         "vue": "^3.5.17",
+        "vue-i18n": "11",
         "vue-router": "^4.5.1"
     },
     "devDependencies": {
