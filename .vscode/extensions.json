@@ -5,6 +5,8 @@
     "EditorConfig.EditorConfig",
     "esbenp.prettier-vscode",
     "stylelint.vscode-stylelint",
-    "lllllllqw.jsdoc"
+    "lllllllqw.jsdoc",
+    "lokalise.i18n-ally",
+    "bradlc.vscode-tailwindcss"
   ]
 }
