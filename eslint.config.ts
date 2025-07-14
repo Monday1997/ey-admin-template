@@ -40,6 +40,7 @@ export default defineConfigWithVueTs(
     {
         rules: {
             'no-explicit-any': 'off',
+            'vue/multi-word-component-names': 'off',
         },
     },
 )
