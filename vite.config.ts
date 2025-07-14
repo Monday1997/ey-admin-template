@@ -7,6 +7,7 @@ import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
@@ -31,7 +32,7 @@ export default defineConfig({
                 'vue-router',
             ],
         }),
-        Components({}),
+        Components({ resolvers: [AntDesignVueResolver({ importStyle: false })] }),
     ],
     resolve: {
         alias: {

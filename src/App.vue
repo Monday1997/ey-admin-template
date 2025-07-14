@@ -10,6 +10,7 @@
     <RouterView />
     <Test />
     <TestA :count="288" />
+    <a-button type="primary">23423</a-button>
 </template>
 <script setup lang="ts">
 import { loadLocaleMessages } from '@/modules/i18n'
