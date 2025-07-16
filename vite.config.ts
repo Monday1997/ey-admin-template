@@ -7,11 +7,14 @@ import path from 'path'
 import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
+// vite.config.ts
+import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
+        VueRouter(),
         vue(),
         vueJsx(),
         VueI18nPlugin({
