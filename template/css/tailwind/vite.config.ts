@@ -11,6 +11,7 @@ import Components from 'unplugin-vue-components/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import UnoCSS from 'unocss/vite'
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
@@ -38,6 +39,7 @@ export default defineConfig({
         }),
         Components({ resolvers: [AntDesignVueResolver({ importStyle: false })] }),
         VitePWA(),
+        UnoCSS(),
     ],
     resolve: {
         alias: {

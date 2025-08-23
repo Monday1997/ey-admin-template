@@ -19,7 +19,7 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/[...path]': RouteRecordInfo<'/[...path]', '/:path(.*)', { path: ParamValue<true> }, { path: ParamValue<false> }>,
-    'name-override': RouteRecordInfo<'name-override', '/test-auto-com', Record<never, never>, Record<never, never>>,
+    '/test-auto-com': RouteRecordInfo<'/test-auto-com', '/test-auto-com', Record<never, never>, Record<never, never>>,
     '/test-i18n': RouteRecordInfo<'/test-i18n', '/test-i18n', Record<never, never>, Record<never, never>>,
   }
 }
