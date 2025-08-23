@@ -1,0 +1,17 @@
+{
+  "rules": [
+    {
+      "files": [
+        "src/**/*.vue",
+        "src/**/*.ts",
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "src/**/*.tsx",
+        "src/**/*.css",
+        "src/**/*.less"
+      ],
+      "naming": "lowercase-dash",
+      "level": "error"
+    }
+  ]
+}

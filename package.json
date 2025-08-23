@@ -2,11 +2,29 @@
   "name": "ey-admin-template",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "gen-template": "./dist/gen-vue-tmp.js"
+  },
+  "files": [
+    "dist",
+    "template"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx src/gen-vue-tmp.ts",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "ejs": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.4"
+  },
+  "dependencies": {
+    "fs-extra": "^11.3.1"
+  }
 }
