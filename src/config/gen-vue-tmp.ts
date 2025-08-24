@@ -1,7 +1,5 @@
 import prompts from "prompts";
-type TpromptsOptions = typeof prompts extends (data: infer P) => any
-  ? P
-  : never;
+import { TpromptsOptions } from "../types/cli";
 export const promptsOptions: TpromptsOptions = [
   {
     type: "text",
