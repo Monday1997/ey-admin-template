@@ -16,7 +16,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/lodash": "^4.17.20",
     "@types/node": "^24.3.0",
+    "@types/prompts": "^2.4.9",
     "ejs": "^3.1.10",
     "minimist": "^1.2.8",
     "prompts": "^2.4.2",
