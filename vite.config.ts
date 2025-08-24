@@ -10,44 +10,51 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
+import cdn from 'vite-plugin-cdn-import'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-    plugins: [
-        VueRouter(),
-        vue(),
-        vueJsx(),
-        VueI18nPlugin({
-            include: [path.resolve(__dirname, './locales/**')],
-            compositionOnly: true,
-        }),
-        // tailwindcss(),
-        UnoCSS(),
-        AutoImport({
-            include: [
-                /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
-                /\.vue$/,
-                /\.vue\?vue/, // .vue
-                /\.vue\.[tj]sx?\?vue/, // .vue (vue-loader with experimentalInlineMatchResource enabled)
-                /\.md$/, // .md
-            ],
-            imports: [
-                // presets
-                'vue',
-                'vue-router',
-            ],
-        }),
-        Components({ resolvers: [AntDesignVueResolver({ importStyle: false })] }),
-        VitePWA({
-            registerType: 'autoUpdate',
-            devOptions: {
-                enabled: true,
-            },
-        }),
-    ],
-    resolve: {
-        alias: {
-            '@': fileURLToPath(new URL('./src', import.meta.url)),
-        },
+  plugins: [
+    VueRouter(),
+    vue(),
+    vueJsx(),
+    VueI18nPlugin({
+      include: [path.resolve(__dirname, './locales/**')],
+      compositionOnly: true,
+    }),
+    // tailwindcss(),
+    UnoCSS(),
+    AutoImport({
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/,
+        /\.vue\?vue/, // .vue
+        /\.vue\.[tj]sx?\?vue/, // .vue (vue-loader with experimentalInlineMatchResource enabled)
+        /\.md$/, // .md
+      ],
+      imports: [
+        // presets
+        'vue',
+        'vue-router',
+      ],
+    }),
+    Components({ resolvers: [AntDesignVueResolver({ importStyle: false })] }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true,
+      },
+    }),
+    cdn({
+      modules: [
+        { name: 'vue', var: 'Vue', path: 'https://unpkg.com/vue@3/dist/vue.global.js' },
+        { name: 'pinia', var: 'Pinia', path: 'https://cdn.bootcdn.net/ajax/libs/pinia/3.0.3/pinia.iife.prod.min.js' },
+      ],
+    }),
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+  },
 })
