@@ -18,6 +18,7 @@
     "dependencies": {
         "@intlify/unplugin-vue-i18n": "^6.0.8",
         "@tailwindcss/vite": "^4.1.11",
+        "@unocss/reset": "^66.4.2",
         "ant-design-vue": "^4.2.6",
         "pinia": "^3.0.3",
         "vue": "^3.5.17",
@@ -27,6 +28,9 @@
     "devDependencies": {
         "@tsconfig/node22": "^22.0.2",
         "@types/node": "^22.15.32",
+        "@unocss/preset-wind3": "^66.4.2",
+        "@unocss/transformer-directives": "^66.4.2",
+        "@unocss/transformer-variant-group": "^66.4.2",
         "@vitejs/plugin-vue": "^6.0.0",
         "@vitejs/plugin-vue-jsx": "^5.0.0",
         "@vue/eslint-config-prettier": "^10.2.0",
@@ -49,6 +53,7 @@
         "stylelint-order": "^7.0.0",
         "tailwindcss": "^4.1.11",
         "typescript": "~5.8.0",
+        "unocss": "^66.4.2",
         "unplugin-auto-import": "^19.3.0",
         "unplugin-vue-components": "^28.8.0",
         "unplugin-vue-router": "^0.14.0",

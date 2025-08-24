@@ -1,17 +1,17 @@
 import { fileURLToPath, URL } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
-import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from 'path'
+// import tailwindcss from '@tailwindcss/vite'
+import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
-// vite.config.ts
 import VueRouter from 'unplugin-vue-router/vite'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
-// https://vite.dev/config/
+
 export default defineConfig({
     plugins: [
         VueRouter(),
@@ -21,7 +21,8 @@ export default defineConfig({
             include: [path.resolve(__dirname, './locales/**')],
             compositionOnly: true,
         }),
-        tailwindcss(),
+        // tailwindcss(),
+        UnoCSS(),
         AutoImport({
             include: [
                 /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
