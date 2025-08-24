@@ -37,7 +37,12 @@ export default defineConfig({
             ],
         }),
         Components({ resolvers: [AntDesignVueResolver({ importStyle: false })] }),
-        VitePWA(),
+        VitePWA({
+            registerType: 'autoUpdate',
+            devOptions: {
+                enabled: true,
+            },
+        }),
     ],
     resolve: {
         alias: {
