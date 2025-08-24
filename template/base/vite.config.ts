@@ -7,9 +7,11 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
+<%- importers.join('\n') %>
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [
+        <%- plugins?plugins.join(',\n')+',' : '' %>
         vue(),
         vueJsx(),
         VueI18nPlugin({
