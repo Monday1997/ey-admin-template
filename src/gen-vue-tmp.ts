@@ -2,6 +2,7 @@
 import fse from "fs-extra";
 import fs from "node:fs";
 
+import minimist from "minimist";
 import path from "path";
 import getData from "../template/css/tailwind/vite.config.data.ts";
 import ejs from "ejs";
@@ -126,58 +127,105 @@ async function fileCopy() {
 }
 
 async function userChoice() {
-  userResult = await prompts([
+  userResult = await prompts(
+    [
+      {
+        type: "text",
+        name: "pkgName",
+        message: "请输入项目名",
+      },
+      {
+        type: "multiselect",
+        name: "config",
+        message: "请选择要配置的基础模块",
+        choices: [
+          // { title: "layout组件", value: "#ff0000" },  lodash vue-use
+          // { title: "axios封装", value: "axios" },
+          { title: "unplugin-vue-route，自动路由", value: "router" },
+        ],
+        hint: "↑/↓: 移动, ⎵: 选择, a: 全选, d: 反选, Enter: 确定",
+        instructions: false,
+      },
+      // {
+      //   type: "toggle",
+      //   name: "cdn",
+      //   message: "是否需要配置cdn加速",
+      //   initial: true,
+      //   active: "yes",
+      //   inactive: "no",
+      // },
+      {
+        type: "select",
+        name: "css",
+        message: "请选择一个css framework",
+        initial: 0,
+        choices: [
+          {
+            title: "tailwindcss",
+            value: "tailwind",
+            description: "使用tailwindcss进行开发",
+          },
+          {
+            title: "unocss",
+            value: "unocss",
+            description: "使用unocss进行开发",
+          },
+        ],
+      },
+    ],
     {
-      type: "text",
-      name: "pkgName",
-      message: "请输入项目名",
-    },
-    {
-      type: "multiselect",
-      name: "config",
-      message: "请选择要配置的基础模块",
-      choices: [
-        // { title: "layout组件", value: "#ff0000" },  lodash vue-use
-        // { title: "axios封装", value: "axios" },
-        { title: "unplugin-vue-route，自动路由", value: "router" },
-      ],
-      hint: "↑/↓: 移动, ⎵: 选择, a: 全选, d: 反选, Enter: 确定",
-      instructions: false,
-    },
-    // {
-    //   type: "toggle",
-    //   name: "cdn",
-    //   message: "是否需要配置cdn加速",
-    //   initial: true,
-    //   active: "yes",
-    //   inactive: "no",
-    // },
-    {
-      type: "select",
-      name: "css",
-      message: "请选择一个css framework",
-      initial: 0,
-      choices: [
-        {
-          title: "tailwindcss",
-          value: "tailwind",
-          description: "使用tailwindcss进行开发",
-        },
-        { title: "unocss", value: "unocss", description: "使用unocss进行开发" },
-      ],
-    },
-  ]);
+      onCancel: () => {
+        console.warn("已退出程序");
+        process.exit();
+      },
+    }
+  );
 }
+function isValidPackageName(projectName) {
+  return /^(?:@[a-z0-9-*~][a-z0-9-*._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/.test(
+    projectName
+  );
+}
+
 // 先把taiwind合进去
 async function init() {
   try {
+    const args = minimist(process.argv.slice(2), {
+      alias: {
+        template: "t",
+      },
+    });
+    const [pkgName] = args._;
+    if (isValidPackageName(pkgName)) {
+      args.pkgName = pkgName;
+      if (args.config && !Array.isArray(args.config)) {
+        args.config = [args.config];
+      }
+      // 使用预设值 用户可以覆盖预设值
+      if (args.template) {
+        const defaultConfig = {
+          pkgName: pkgName,
+          config: ["router"], // TODO 后续给个layout
+          css: "unocss",
+          //TODO 后续toogle直接用false
+        };
+        userResult = Object.assign(
+          defaultConfig,
+          _.pick(args, _.keys(defaultConfig))
+        );
+        await fileCopy();
+        process.exit();
+      }
+    } else if (pkgName || args._.length > 0) {
+      console.error("项目名称输入不合法");
+      process.exit();
+    }
+
+    prompts.override(args);
     await userChoice();
     fileCopy();
   } catch (error) {
     console.log("🚀 ~ init ~ error:", error);
   }
-
-  //   mergePkg();
-  //   mergeViteConfig();
 }
 init();
