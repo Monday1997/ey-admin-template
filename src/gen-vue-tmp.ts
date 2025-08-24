@@ -28,10 +28,11 @@ function isSkippedFile(filePath) {
 }
 const dataTsMap = {};
 async function fileCopy() {
+  userResult.config.push("base");
   const { pkgName, ...userOptions } = userResult;
   const destDir = path.resolve(cwd, pkgName);
   let tmpDir = path.resolve(__dirname, "../template");
-
+  fs.existsSync(destDir) && fse.removeSync(destDir);
   fse.copySync("./template/base", destDir, {
     filter: (src) => {
       // 不复制node_modules目录
@@ -72,7 +73,7 @@ async function fileCopy() {
                 data,
                 (objValue, srcValue) => {
                   if (_.isArray(objValue)) {
-                    return _.unique(objValue.concat(srcValue));
+                    return _.uniq(objValue.concat(srcValue));
                   }
                 }
               );
@@ -100,6 +101,13 @@ async function fileCopy() {
   }
   for (const fileName of Object.keys(userOptions)) {
     if (Array.isArray(userResult[fileName])) {
+      for (const fileValue of userResult[fileName]) {
+        const src = path.resolve(
+          __dirname,
+          `../template/${fileName}/${fileValue}`
+        );
+        await walkFiles(src);
+      }
     } else {
       const pathValue =
         typeof fileName === "string"
