@@ -2,6 +2,11 @@
   <div class="bg-red-500 p-40 text-white text-center">404页面</div>
   <a-button @click="increment" type="primary">+1</a-button>
   <div>{{ store.count }}-{{ store.doubleCount }}</div>
+  <div>
+    <a-badge count="5">
+      一些内容
+    </a-badge>
+  </div>
 </template>
 
 <script setup lang="ts">
