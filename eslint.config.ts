@@ -10,37 +10,45 @@ import pluginVue from 'eslint-plugin-vue'
 // More info at https://github.com/vuejs/eslint-config-typescript/#advanced-setup
 
 export default defineConfigWithVueTs(
-    {
-        name: 'app/files-to-lint',
-        files: ['**/*.{ts,mts,tsx,vue}'],
+  {
+    name: 'app/files-to-lint',
+    files: ['**/*.{ts,mts,tsx,vue}'],
+  },
+  {
+    plugins: {
+      'simple-import-sort': simpleImportSort,
     },
-    {
-        plugins: {
-            'simple-import-sort': simpleImportSort,
+    rules: {
+      'simple-import-sort/imports': [
+        'warn',
+        {
+          groups: [
+            ['^\\u0000'],
+            ['^node:', '^vue', '^ant-design-vue', '^@ant-design', '^@?\\w'],
+            ['^'], // component那些
+            ['^\\.'],
+          ],
         },
-        rules: {
-            'simple-import-sort/imports': [
-                'warn',
-                {
-                    groups: [
-                        ['^\\u0000'],
-                        ['^node:', '^vue', '^ant-design-vue', '^@ant-design', '^@?\\w'],
-                        ['^'], // component那些
-                        ['^\\.'],
-                    ],
-                },
-            ],
-            'simple-import-sort/exports': 'warn',
-        },
+      ],
+      'simple-import-sort/exports': 'warn',
     },
-    globalIgnores(['node_modules/**', '**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
-    pluginVue.configs['flat/essential'],
-    vueTsConfigs.recommended,
-    skipFormatting,
-    {
-        rules: {
-            'no-explicit-any': 'off',
-            'vue/multi-word-component-names': 'off',
+  },
+  globalIgnores(['node_modules/**', '**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+  pluginVue.configs['flat/essential'],
+  vueTsConfigs.recommended,
+  skipFormatting,
+  {
+    rules: {
+      'no-explicit-any': 'off',
+      'vue/multi-word-component-names': 'off',
+      '@typescript-eslint/no-unused-expressions': [
+        'error',
+        {
+          allowShortCircuit: true, // 允许 condition && doSomething()
+          allowTernary: true, // 允许 condition ? a() : b()
         },
+      ],
+      '@typescript-eslint/no-explicit-any': 'off',
     },
+  },
 )

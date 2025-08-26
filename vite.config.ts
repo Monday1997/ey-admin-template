@@ -39,6 +39,19 @@ export default defineConfig({
       ],
     }),
     Components({ resolvers: [AntDesignVueResolver({ importStyle: false })] }),
+    cdn({
+      modules: [
+        { name: 'vue', global: 'Vue', relativeModule: '/vue/3.5.17/vue.global.prod.min.js' },
+        {
+          name: 'pinia',
+          global: 'Pinia',
+          relativeModule: '/pinia/3.0.3/pinia.iife.prod.js',
+        },
+      ],
+      // 只在 build 阶段生效
+      apply: 'build',
+      resolve: bootcdn(),
+    }),
     VitePWA({
       workbox: {
         runtimeCaching: [
@@ -50,7 +63,7 @@ export default defineConfig({
             options: {
               cacheName: 'cdn-cache',
               expiration: {
-                maxEntries: 50,         // 最多缓存 50 个文件
+                maxEntries: 50, // 最多缓存 50 个文件
                 maxAgeSeconds: 60 * 60 * 24 * 30, // 缓存 30 天
               },
               cacheableResponse: {
@@ -60,17 +73,6 @@ export default defineConfig({
           },
         ],
       },
-    }),
-    cdn({
-      modules: [
-        { name: 'vue', global: 'Vue', relativeModule: '/vue/3.5.17/vue.global.prod.min.js' },
-        {
-          name: 'pinia', global: 'Pinia', relativeModule: '/pinia/3.0.3/pinia.iife.prod.js'
-        },
-      ],
-      // 只在 build 阶段生效
-      apply: 'build',
-      resolve: bootcdn()
     }),
   ],
   resolve: {
