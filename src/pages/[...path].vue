@@ -9,4 +9,5 @@
 import { useCounterStore } from '@/stores/counter'
 const store = useCounterStore()
 const { increment } = store
+console.log(import.meta.env)
 </script>
