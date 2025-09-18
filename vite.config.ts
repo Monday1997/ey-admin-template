@@ -15,6 +15,7 @@ import { bootcdn } from 'vite-plugin-cdn2/resolver/bootcdn'
 import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   plugins: [
+    // 注意 这个必须放在最前面
     VueRouter(),
     vue(),
     vueJsx(),

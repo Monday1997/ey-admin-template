@@ -16,10 +16,13 @@
     "lint:all": "npm run lint && npm run lint:style && npm run lint:fn"
   },
   "dependencies": {
+    "@ey-use/utils": "1.0.0-beta.0",
+    "@ey-use/vite-plugin": "^1.0.0",
     "@intlify/unplugin-vue-i18n": "^6.0.8",
     "@tailwindcss/vite": "^4.1.11",
     "@unocss/reset": "^66.4.2",
-    "ant-design-vue": "^4.2.6",
+    "ant-design-vue": "^4.0.0",
+    "ey-admin": "1.0.0-beta.1",
     "pinia": "^3.0.3",
     "unocss": "^66.4.2",
     "unplugin-auto-import": "^19.3.0",
