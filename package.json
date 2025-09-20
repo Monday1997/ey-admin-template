@@ -1,8 +1,8 @@
 {
   "name": "create-ey-admin",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "bin": {
-    "create-ey-admin": "./dist/gen-vue-tmp.js"
+    "create-ey-admin": "./dist/gen-vue-tmp.mjs"
   },
   "files": [
     "dist",
@@ -10,24 +10,30 @@
   ],
   "scripts": {
     "dev": "tsx src/gen-vue-tmp.ts",
-    "build": "tsup"
+    "build": "unbuild"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "ey-admin",
+    "@ey-use",
+    "cli"
+  ],
+  "author": "monday",
+  "license": "MIT",
   "devDependencies": {
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.3.0",
     "@types/prompts": "^2.4.9",
-    "ejs": "^3.1.10",
-    "minimist": "^1.2.8",
-    "prompts": "^2.4.2",
-    "ts-node": "^10.9.2",
-    "tsup": "^8.5.0",
-    "tsx": "^4.20.4"
+    "tsx": "^4.20.4",
+    "unbuild": "^3.6.1"
   },
   "dependencies": {
+    "chalk": "^5.6.2",
+    "consola": "^3.4.2",
+    "ejs": "^3.1.10",
     "fs-extra": "^11.3.1",
-    "lodash": "^4.17.21"
+    "jiti": "^2.5.1",
+    "lodash": "^4.17.21",
+    "minimist": "^1.2.8",
+    "prompts": "^2.4.2"
   }
 }

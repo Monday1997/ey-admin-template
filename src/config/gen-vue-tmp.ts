@@ -1,4 +1,3 @@
-import prompts from "prompts";
 import { TpromptsOptions } from "../types/cli";
 export const promptsOptions: TpromptsOptions = [
   {
@@ -29,10 +28,14 @@ export const promptsOptions: TpromptsOptions = [
     name: "config",
     message: "请选择要配置的基础模块",
     choices: [
-      { title: "unplugin-vue-route，自动路由", value: "unplugin" },
-      { title: "i18n", value: "i18n" },
+      {
+        title: "unplugin-vue-route",
+        value: "router",
+        description: "自动路由",
+      },
+      { title: "i-18n", value: "i-18n" },
       { title: "pwa", value: "pwa" },
-      { title: "cdn打包处理(生产环境慎用)", value: "router" },
+      { title: "cdn", value: "cdn", description: "cdn访问依赖(生产环境慎用)" },
     ],
     hint: "↑/↓: 移动, ⎵: 选择, a: 全选, d: 反选, Enter: 确定",
     instructions: false,

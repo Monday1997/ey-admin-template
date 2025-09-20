@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 import { init } from "./common-tmp";
 import { promptsOptions } from "./config/gen-vue-tmp";
+import path from "path";
+import { getDir } from "./utils/path";
 
-import { vueTmp } from "./utils/path";
+const __dirname = getDir(import.meta.url);
+export const vueTmp = path.resolve(__dirname, "../template");
+
 type TdefaultConfig = {
   pkgName: string;
   config: string[];
@@ -10,9 +14,8 @@ type TdefaultConfig = {
 };
 const defaultConfig = {
   pkgName: "",
-  config: ["router"], // TODO 后续给个layout
+  config: ["router"],
   css: "unocss",
-  //TODO 后续toogle直接用false
 };
 
 init<TdefaultConfig>({

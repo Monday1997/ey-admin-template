@@ -1,18 +1,20 @@
 #!/usr/bin/env node
 import fse from "fs-extra";
-import fs from "node:fs";
-
+import { createSuccessTip } from "./utils/tools";
 import { dealParamsWithName } from "./utils/cli";
-
+import { consola } from "consola";
 import { TInitProps, TpromptsOptions } from "./types/cli";
-
+import chalk from "chalk";
+import { fileURLToPath } from "node:url";
 import path from "path";
 import ejs from "ejs";
-import { pathToFileURL } from "node:url";
+
 import prompts from "prompts";
 import _ from "lodash";
-// import { promptsOptions } from "./config.ts/gen-vue-tmp";
+import { createJiti } from "jiti";
 
+const __filename = fileURLToPath(import.meta.url);
+const jiti = createJiti(__filename);
 const cwd = process.cwd();
 let pkgName = "";
 let userOptions = {};
@@ -52,8 +54,9 @@ async function walkFiles(filePath, level = 0) {
           _.merge(destJson, curJson);
           fse.writeFileSync(destPath, JSON.stringify(destJson, null, 2));
         } else if (curPath.endsWith(".data.ts")) {
-          const fileURL = pathToFileURL(curPath).href;
-          const module = await import(fileURL);
+          const module = (await jiti.import(curPath)) as {
+            default: () => Record<string, unknown>;
+          };
           const data = module.default();
           if (dataTsMap[relactivePath]) {
             _.mergeWith(
@@ -77,7 +80,7 @@ async function walkFiles(filePath, level = 0) {
         } else if (curPath.endsWith(".d.ts")) {
           const destContent = fse.readFileSync(destPath, "utf-8");
           const currentContent = fse.readFileSync(curPath, "utf-8");
-          fse.writeFileSync(destPath, destContent + "/n" + currentContent);
+          fse.writeFileSync(destPath, destContent + currentContent);
         } else {
           // 其他文件直接复制
           fse.copyFileSync(curPath, destPath);
@@ -94,21 +97,21 @@ async function ensureDir(targetPath: string) {
     const { overwrite } = await prompts({
       type: "confirm",
       name: "overwrite",
-      message: `目录 "${absPath}" 已存在，是否覆盖？`,
+      message: chalk.red(`目录 "${absPath}" 已存在，是否覆盖？`),
       initial: true,
     });
 
     if (!overwrite) {
-      console.log("❌ 用户已取消");
+      consola.warn("用户已取消");
       process.exit();
     } else {
-      console.log("⚠️ 删除已有目录...");
+      consola.start(chalk.red("删除已有目录..."));
       await fse.remove(absPath);
     }
   }
 
   await fse.ensureDir(absPath);
-  console.log(`✅ 目录已准备好: ${absPath}`);
+  consola.success(chalk.cyan(`目录已准备好: ${absPath}`));
 }
 async function makeFiles(result: any) {
   result.config.push("base");
@@ -117,7 +120,7 @@ async function makeFiles(result: any) {
   userOptions = resultOptions;
   destDir = path.resolve(cwd, pkgName);
   await ensureDir(destDir);
-  fse.copySync("./template/base", destDir, {
+  fse.copySync(path.resolve(tmpPath, "base"), destDir, {
     filter: (src) => {
       // 不复制node_modules目录
       return !src.includes("node_modules");
@@ -144,12 +147,13 @@ async function makeFiles(result: any) {
     const result = ejs.render(content, data);
     fse.writeFileSync(destPath, result);
   }
+  createSuccessTip(pkgName);
 }
 
 async function userChoice(promptsOptions: TpromptsOptions) {
   const result = await prompts(promptsOptions, {
     onCancel: () => {
-      console.warn("❌ 用户已取消");
+      consola.warn("❌ 用户已取消");
       process.exit();
     },
   });
@@ -169,7 +173,6 @@ export async function init<T extends Record<string, any>>(
     });
 
     await userChoice(initProps.promptsOptions);
-    console.log("创建成功！");
   } catch (error) {
     console.log("🚀 ~ init ~ error:", error);
   }

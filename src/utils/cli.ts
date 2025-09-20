@@ -3,6 +3,7 @@ import minimist from "minimist";
 import prompts from "prompts";
 import { TDealParamsWithNameArags } from "../types/cli";
 import _ from "lodash";
+import consola from "consola";
 export function getUserArgs(options) {
   return minimist(process.argv.slice(2), options);
 }
@@ -27,11 +28,10 @@ export async function dealParamsWithName<T extends Record<string, any>>(
         _.pick(args, _.keys(defaultConfig).push("pkgName"))
       );
       await mainStep(result);
-      console.log("创建成功！");
       process.exit();
     }
   } else if (pkgName || args._.length > 0) {
-    console.error("用户输入不合法");
+    consola.error("用户输入不合法");
     process.exit();
   }
   prompts.override(args);
