@@ -7,26 +7,6 @@ export const promptsOptions: TpromptsOptions = [
     message: "请输入项目名",
   },
   {
-    type: "multiselect",
-    name: "config",
-    message: "请选择要配置的基础模块",
-    choices: [
-      // { title: "layout组件", value: "#ff0000" },  lodash vue-use
-      // { title: "axios封装", value: "axios" },
-      { title: "unplugin-vue-route，自动路由", value: "router" },
-    ],
-    hint: "↑/↓: 移动, ⎵: 选择, a: 全选, d: 反选, Enter: 确定",
-    instructions: false,
-  },
-  // {
-  //   type: "toggle",
-  //   name: "cdn",
-  //   message: "是否需要配置cdn加速",
-  //   initial: true,
-  //   active: "yes",
-  //   inactive: "no",
-  // },
-  {
     type: "select",
     name: "css",
     message: "请选择一个css framework",
@@ -43,5 +23,26 @@ export const promptsOptions: TpromptsOptions = [
         description: "使用unocss进行开发",
       },
     ],
+  },
+  {
+    type: "multiselect",
+    name: "config",
+    message: "请选择要配置的基础模块",
+    choices: [
+      { title: "unplugin-vue-route，自动路由", value: "unplugin" },
+      { title: "i18n", value: "i18n" },
+      { title: "pwa", value: "pwa" },
+      { title: "cdn打包处理(生产环境慎用)", value: "router" },
+    ],
+    hint: "↑/↓: 移动, ⎵: 选择, a: 全选, d: 反选, Enter: 确定",
+    instructions: false,
+  },
+  {
+    type: "toggle",
+    name: "axios",
+    message: "是否使用已初步封装的axios",
+    initial: true,
+    active: "yes",
+    inactive: "no",
   },
 ];

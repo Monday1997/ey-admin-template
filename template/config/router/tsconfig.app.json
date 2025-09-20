@@ -1,0 +1,3 @@
+{
+  "include": ["./typed-router.d.ts"]
+}

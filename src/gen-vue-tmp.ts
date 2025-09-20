@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { init } from "./common-tmp";
 import { promptsOptions } from "./config/gen-vue-tmp";
 

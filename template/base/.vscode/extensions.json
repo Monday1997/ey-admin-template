@@ -1,13 +1,14 @@
 {
-    "recommendations": [
-        "Vue.volar",
-        "dbaeumer.vscode-eslint",
-        "EditorConfig.EditorConfig",
-        "esbenp.prettier-vscode",
-        "stylelint.vscode-stylelint",
-        "lllllllqw.jsdoc",
-        "lokalise.i18n-ally",
-        "bradlc.vscode-tailwindcss",
-        "stylelint.vscode-stylelint"
-    ]
+  "recommendations": [
+    "Vue.volar",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "lllllllqw.jsdoc",
+    "lokalise.i18n-ally",
+    "bradlc.vscode-tailwindcss",
+    "stylelint.vscode-stylelint",
+    "lokalise.i18n-ally"
+  ]
 }

@@ -1,8 +1,8 @@
 {
-  "name": "ey-admin-template",
+  "name": "create-ey-admin",
   "version": "1.0.0",
   "bin": {
-    "gen-template": "./dist/gen-vue-tmp.js"
+    "create-ey-admin": "./dist/gen-vue-tmp.js"
   },
   "files": [
     "dist",

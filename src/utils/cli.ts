@@ -27,6 +27,7 @@ export async function dealParamsWithName<T extends Record<string, any>>(
         _.pick(args, _.keys(defaultConfig).push("pkgName"))
       );
       await mainStep(result);
+      console.log("创建成功！");
       process.exit();
     }
   } else if (pkgName || args._.length > 0) {

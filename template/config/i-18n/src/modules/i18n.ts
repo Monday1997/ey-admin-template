@@ -3,9 +3,9 @@ import type { Locale } from 'vue-i18n'
 import { createI18n } from 'vue-i18n'
 
 const i18n = createI18n({
-    legacy: false,
+    legacy: false, //Composition API 模式
     locale: '',
-    message: {},
+    messages: {},
 })
 
 const localesMap = Object.fromEntries(

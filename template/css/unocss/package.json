@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@unocss/reset": "^66.4.2",
+    "unocss": "^66.4.2"
+  },
+  "devDependencies": {
+    "@unocss/preset-wind3": "^66.4.2",
+    "@unocss/transformer-directives": "^66.4.2",
+    "@unocss/transformer-variant-group": "^66.4.2"
+  }
+}

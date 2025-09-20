@@ -86,13 +86,37 @@ async function walkFiles(filePath, level = 0) {
     }
   }
 }
+
+async function ensureDir(targetPath: string) {
+  const absPath = path.resolve(targetPath);
+
+  if (await fse.pathExists(absPath)) {
+    const { overwrite } = await prompts({
+      type: "confirm",
+      name: "overwrite",
+      message: `目录 "${absPath}" 已存在，是否覆盖？`,
+      initial: true,
+    });
+
+    if (!overwrite) {
+      console.log("❌ 用户已取消");
+      process.exit();
+    } else {
+      console.log("⚠️ 删除已有目录...");
+      await fse.remove(absPath);
+    }
+  }
+
+  await fse.ensureDir(absPath);
+  console.log(`✅ 目录已准备好: ${absPath}`);
+}
 async function makeFiles(result: any) {
   result.config.push("base");
   const { pkgName: pkgResult, ...resultOptions } = result;
   pkgName = pkgResult;
   userOptions = resultOptions;
   destDir = path.resolve(cwd, pkgName);
-  fs.existsSync(destDir) && fse.removeSync(destDir);
+  await ensureDir(destDir);
   fse.copySync("./template/base", destDir, {
     filter: (src) => {
       // 不复制node_modules目录
@@ -105,9 +129,9 @@ async function makeFiles(result: any) {
         const src = path.resolve(tmpPath, `./${fileName}/${fileValue}`);
         await walkFiles(src);
       }
-    } else {
+    } else if (userOptions[fileName]) {
       const pathValue =
-        typeof fileName === "string"
+        typeof userOptions[fileName] === "string"
           ? `./${fileName}/${userOptions[fileName]}`
           : `./${fileName}`;
       const src = path.resolve(tmpPath, pathValue);
@@ -125,11 +149,11 @@ async function makeFiles(result: any) {
 async function userChoice(promptsOptions: TpromptsOptions) {
   const result = await prompts(promptsOptions, {
     onCancel: () => {
-      console.warn("已退出程序");
+      console.warn("❌ 用户已取消");
       process.exit();
     },
   });
-  makeFiles(result);
+  await makeFiles(result);
 }
 
 // 先把taiwind合进去
@@ -138,13 +162,14 @@ export async function init<T extends Record<string, any>>(
 ) {
   try {
     tmpPath = initProps.tmpPath;
-    dealParamsWithName<T>({
+    await dealParamsWithName<T>({
       defaultConfig: initProps.defaultConfig,
       transformBefore: initProps.tansformUserArgs || undefined,
       mainStep: makeFiles,
     });
 
     await userChoice(initProps.promptsOptions);
+    console.log("创建成功！");
   } catch (error) {
     console.log("🚀 ~ init ~ error:", error);
   }

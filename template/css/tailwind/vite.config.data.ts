@@ -1,7 +1,6 @@
-function getData() {
+export default function getData(){
   return {
-    importers: [`import tailwindcss from '@tailwindcss/vite'`],
-    plugins: [`tailwindcss()`],
-  };
+    importers:[`import tailwindcss from '@tailwindcss/vite'`],
+    plugins:[`tailwindcss()`]
+  }
 }
-export default getData;
