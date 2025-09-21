@@ -1,6 +1,6 @@
 {
   "name": "create-ey-admin",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "bin": {
     "create-ey-admin": "./dist/gen-vue-tmp.mjs"
   },
@@ -11,7 +11,9 @@
   ],
   "scripts": {
     "dev": "jiti src/gen-vue-tmp.ts",
-    "build": "unbuild"
+    "build": "unbuild",
+    "release": "pnpm build && npm publish",
+    "release:tag": "pnpm build && npm publish --tag beta"
   },
   "keywords": [
     "ey-admin",

@@ -120,12 +120,7 @@ async function makeFiles(result: any) {
   userOptions = resultOptions
   destDir = path.resolve(cwd, pkgName)
   await ensureDir(destDir)
-  fse.copySync(path.resolve(tmpPath, 'base'), destDir, {
-    filter: (src) => {
-      // 不复制node_modules目录
-      return !src.includes('node_modules')
-    }
-  })
+  fse.copySync(path.resolve(tmpPath, 'base'), destDir)
   for (const fileName of Object.keys(userOptions)) {
     if (Array.isArray(result[fileName])) {
       for (const fileValue of result[fileName]) {

@@ -4,19 +4,20 @@ import prompts from 'prompts'
 import { TDealParamsWithNameArags } from '../types/cli'
 import _ from 'lodash'
 import consola from 'consola'
-export function getUserArgs(options) {
-  return minimist(process.argv.slice(2), options)
+export function getUserArgs() {
+  return minimist(process.argv.slice(2), {
+    alias: {
+      template: 't'
+    }
+  })
 }
 // 需要用户带name进入时
 export async function dealParamsWithName<T extends Record<string, any>>(
   data: TDealParamsWithNameArags<T>
 ) {
   const { defaultConfig, transformBefore, mainStep } = data
-  const args = getUserArgs({
-    alias: {
-      template: 't'
-    }
-  })
+  const args = getUserArgs()
+
   const [pkgName] = args._
   if (pkgName && isValidPackageName(pkgName)) {
     args.pkgName = pkgName
@@ -25,7 +26,7 @@ export async function dealParamsWithName<T extends Record<string, any>>(
     if (args.template) {
       const result = Object.assign(
         defaultConfig,
-        _.pick(args, _.keys(defaultConfig).push('pkgName'))
+        _.pick(args, _.keys(defaultConfig).concat('pkgName'))
       )
       await mainStep(result)
       process.exit()
