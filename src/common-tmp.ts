@@ -52,7 +52,7 @@ async function walkFiles(filePath, level = 0) {
           const destJson = JSON.parse(fse.readFileSync(destPath, 'utf-8'))
           const curJson = JSON.parse(fse.readFileSync(curPath, 'utf-8'))
           _.merge(destJson, curJson)
-          fse.writeFileSync(destPath, JSON.stringify(destJson, null, 2))
+          fse.outputFileSync(destPath, JSON.stringify(destJson, null, 2))
         } else if (curPath.endsWith('.data.ts')) {
           const module = (await jiti.import(curPath)) as {
             default: () => Record<string, unknown>
@@ -76,12 +76,11 @@ async function walkFiles(filePath, level = 0) {
           const curContent = fse.readFileSync(curPath, 'utf-8')
           const destContent = ejs.render(curContent, userOptions)
           const realPath = destPath.replace(/\.ejs$/, '')
-          fse.ensureDirSync(destPath)
-          fse.writeFileSync(realPath, destContent)
+          fse.outputFileSync(realPath, destContent)
         } else if (curPath.endsWith('.d.ts')) {
           const destContent = fse.readFileSync(destPath, 'utf-8')
           const currentContent = fse.readFileSync(curPath, 'utf-8')
-          fse.writeFileSync(destPath, destContent + currentContent)
+          fse.outputFileSync(destPath, destContent + currentContent)
         } else {
           // 其他文件直接复制
           fse.copyFileSync(curPath, destPath)
@@ -146,7 +145,7 @@ async function makeFiles(result: any) {
     const { data, destPath } = dataTsMap[key]
     const content = fse.readFileSync(destPath, 'utf-8')
     const result = ejs.render(content, data)
-    fse.writeFileSync(destPath, result)
+    fse.outputFileSync(destPath, result)
   }
   createSuccessTip(pkgName)
 }
