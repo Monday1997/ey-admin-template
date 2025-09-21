@@ -1,6 +1,6 @@
 {
   "name": "create-ey-admin",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "bin": {
     "create-ey-admin": "./dist/gen-vue-tmp.mjs"
   },
@@ -10,7 +10,7 @@
     "README.md"
   ],
   "scripts": {
-    "dev": "tsx src/gen-vue-tmp.ts",
+    "dev": "jiti src/gen-vue-tmp.ts",
     "build": "unbuild"
   },
   "keywords": [

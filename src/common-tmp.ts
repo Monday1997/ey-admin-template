@@ -76,6 +76,7 @@ async function walkFiles(filePath, level = 0) {
           const curContent = fse.readFileSync(curPath, 'utf-8')
           const destContent = ejs.render(curContent, userOptions)
           const realPath = destPath.replace(/\.ejs$/, '')
+          fse.ensureDirSync(destPath)
           fse.writeFileSync(realPath, destContent)
         } else if (curPath.endsWith('.d.ts')) {
           const destContent = fse.readFileSync(destPath, 'utf-8')
