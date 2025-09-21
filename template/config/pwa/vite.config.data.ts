@@ -7,9 +7,11 @@ export default function getData() {
         runtimeCaching: [
           {
             // 匹配 bootcdn、unpkg、jsdelivr 等 CDN
-            urlPattern: /^https:\/\/(cdn\.bootcdn\.net|unpkg\.com|cdn\.jsdelivr\.net)\/.*\.(js|css)/,
+            urlPattern:  
+            new RegExp(
+              '^https:\\/\\/(cdn\\.bootcdn\\.net|unpkg\\.com|cdn\\.jsdelivr\\.net)\\/.*\\.(js|css)'
+            ),
             handler: 'CacheFirst',
-            // handler: 'StaleWhileRevalidate', // 改为 StaleWhileRevalidate
             options: {
               cacheName: 'cdn-cache',
               expiration: {

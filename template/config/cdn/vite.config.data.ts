@@ -1,6 +1,6 @@
-export default function getData{
+export default function getData() {
   return {
-    plugins:[
+    plugins: [
       `cdn({
       modules: [
         { name: 'vue', global: 'Vue', relativeModule: '/vue/3.5.17/vue.global.prod.min.js' },
@@ -13,11 +13,11 @@ export default function getData{
       // 只在 build 阶段生效
       apply: 'build',
       resolve: bootcdn(),
-    })`
+    })`,
     ],
-    importers:[
+    importers: [
       `import cdn from 'vite-plugin-cdn2'`,
-      `import { bootcdn } from 'vite-plugin-cdn2/resolver/bootcdn'`
-    ]
-  }
+      `import { bootcdn } from 'vite-plugin-cdn2/resolver/bootcdn'`,
+    ],
+  };
 }
