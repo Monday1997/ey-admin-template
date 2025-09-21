@@ -6,7 +6,8 @@
   },
   "files": [
     "dist",
-    "template"
+    "template",
+    "README.md"
   ],
   "scripts": {
     "dev": "tsx src/gen-vue-tmp.ts",
