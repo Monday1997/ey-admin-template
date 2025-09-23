@@ -1,6 +1,6 @@
 {
   "name": "create-ey-admin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "bin": {
     "create-ey-admin": "./dist/gen-vue-tmp.mjs"
   },
